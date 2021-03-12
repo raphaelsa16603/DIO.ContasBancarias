@@ -1,0 +1,6 @@
+#
+# Configurando instalando o System.Configuration no projeto
+
+dotnet add package System.Configuration.ConfigurationManager --version 5.0.0
+
+dotnet add package System.Text.Json --version 5.0.1
