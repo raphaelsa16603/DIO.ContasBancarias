@@ -5,9 +5,46 @@ using DIO.ContasBancarias.Model.Interfaces;
 
 namespace DIO.ContasBancarias.Model.Entidades
 {
-    public class Contas :  Interfaces.ISubject, Interfaces.IMensagem, Interfaces.IContas
+    public class Contas :  Interfaces.ISubject, Interfaces.IMensagem, Interfaces.IContas, Interfaces.IObserver
     {
         private List<IConta> listContas = new List<IConta>();
+
+        public Contas ()
+        {
+
+        }
+
+        public Contas (List<IConta> ContasDB)
+        {
+            LerContasDoBD(ContasDB);
+        }
+
+        public void LerContasDoBD (List<IConta> ContasBD)
+        {
+            if (ContasBD.Count == 0)
+			{
+				EnviaMensagem("Nenhuma conta cadastrada no Banco de Dados.");
+				return;
+			}
+
+			for (int i = 0; i < ContasBD.Count; i++)
+			{
+				IConta conta = ContasBD[i];
+
+                IConta novaConta = new Conta
+                                    (conta.TipoConta,
+										saldo: conta.Saldo,
+										credito: conta.Credito,
+										nome: conta.Nome);
+
+			    listContas.Add(novaConta);
+
+                //Observar conta
+                ((Model.Interfaces.ISubject)novaConta).Attach(this);
+
+                EnviaMensagem($"Lendo do BD a conta #{i} - {conta.ToString()}");
+			}
+        }
 
 
         public void Depositar(int indiceConta, double valorDeposito)
@@ -100,6 +137,15 @@ namespace DIO.ContasBancarias.Model.Entidades
             this.MensagemDaOperacao = msg;
 
             Notify();
+        }
+
+        public void Update(ISubject subject)
+        {
+            if ((subject as Conta).State <= 1)
+            {
+                string msg = ((IMensagem) (subject as Conta)).MensagemDaOperacao;
+                EnviaMensagem($"{msg}");
+            }
         }
     }
 }
