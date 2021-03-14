@@ -12,10 +12,14 @@ namespace DIO.ContasBancarias.Data.LDados
         public string NomeConta { get; set; }
         [XmlAttribute]
         public int IdConta { get; set; }
+
         [XmlAttribute]
-        public double Saldo { get; set; }
+        public double Movimentacao { get; set; }
+
         [XmlAttribute]
-		public double Credito { get; set; }
+        public double SaldoAntes { get; set; }
+        [XmlAttribute]
+		public double CreditoAntes { get; set; }
 		        
     }
 }
