@@ -15,5 +15,10 @@ namespace DIO.ContasBancarias.Data.LDados
 		public string Nome { get; set; }
         [XmlAttribute]
         public int IdConta { get; set; }
+
+        [XmlAttribute]
+        public bool Excluido { get; set; }
+
+        public void Excluir();
     }
 }
