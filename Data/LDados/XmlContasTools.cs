@@ -107,7 +107,14 @@ namespace DIO.ContasBancarias.Data.LDados
             List<IConta> contas = this.asContas.ListarContas();
             foreach (IConta conta in contas)
             {
-                DLConta ContaXml = new DLConta();
+                DLConta ContaXml = new DLConta(
+                    tipoConta: conta.TipoConta,
+                    saldo: conta.Saldo,
+                    credito: conta.Credito,
+                    nome: conta.Nome,
+                    id: conta.IdConta,
+                    excluido: conta.Excluido                
+                );
                 
                 if (conta.Excluido)
                 {

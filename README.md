@@ -20,3 +20,11 @@
 ##### -- https://docs.microsoft.com/pt-br/dotnet/api/system.xml.serialization.xmlserializer?view=net-5.0
 ##### --
 - dotnet add package System.Xml.XmlSerializer --version 4.3.0
+
+
+##### Dica do Visual Studio Code
+####### - Abra .vscode/launch.json.
+####### - Altere a console configuração de internalConsole para integratedTerminal :
+####### JSON
+#######     "console": "integratedTerminal",
+####### - Salve as alterações.

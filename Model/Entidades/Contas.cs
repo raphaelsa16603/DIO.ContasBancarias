@@ -75,12 +75,13 @@ namespace DIO.ContasBancarias.Model.Entidades
 		{
             EnviaMensagem($"Inserir conta (Tipo {entradaTipoConta}) (Nome {entradaNome}) " + 
                 $"com saldo no valor de R$ {entradaSaldo} e crédido no valor de R$ {entradaCredito}.");
+            int idProx = this.ProximoId();
 			IConta novaConta = new Conta
                                     (tipoConta: (TipoConta)entradaTipoConta,
 										saldo: entradaSaldo,
 										credito: entradaCredito,
 										nome: entradaNome,
-                                        id: ProximoId(),
+                                        id: idProx,
                                         excluido: false);
 
 			listContas.Add(novaConta);
@@ -105,7 +106,9 @@ namespace DIO.ContasBancarias.Model.Entidades
                                     (conta.TipoConta,
 										saldo: conta.Saldo,
 										credito: conta.Credito,
-										nome: conta.Nome);
+										nome: conta.Nome, 
+                                        id: conta.IdConta,
+                                        excluido: conta.Excluido);
 
 			    listDadosConta.Add(novaConta);
 
@@ -182,6 +185,10 @@ namespace DIO.ContasBancarias.Model.Entidades
 
         public int ProximoId()
         {
+            if(this.listContas == null)
+            {
+                this.listContas = new List<IConta>();
+            }
             return this.listContas.Count;
         }
 

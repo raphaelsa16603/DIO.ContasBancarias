@@ -28,6 +28,16 @@ namespace DIO.ContasBancarias.Data.LDados
 
         }
 
+        public DLConta(TipoConta tipoConta, double saldo, double credito, string nome, int id, bool excluido)
+		{
+			this.TipoConta = tipoConta;
+			this.Saldo = saldo;
+			this.Credito = credito;
+			this.Nome = nome;
+            this.IdConta = id;
+            this.Excluido = excluido;
+		}
+
         public void Excluir() {
             this.Excluido = true;
         }
