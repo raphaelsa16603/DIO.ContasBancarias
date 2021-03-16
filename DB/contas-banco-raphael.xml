@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DLContasRepositorio xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Contas>
-    <DLConta TipoConta="PessoaJuridica" Saldo="1500" Credito="500" Nome="Raphael" IdConta="0" Excluido="false" />
+    <DLConta TipoConta="PessoaJuridica" Saldo="1000" Credito="500" Nome="Raphael" IdConta="0" Excluido="false" />
     <DLConta TipoConta="PessoaJuridica" Saldo="3000" Credito="500" Nome="Ruth" IdConta="1" Excluido="false" />
     <DLConta TipoConta="PessoaJuridica" Saldo="1000" Credito="500" Nome="Sofia" IdConta="2" Excluido="false" />
     <DLConta TipoConta="PessoaJuridica" Saldo="1000" Credito="500" Nome="Alice" IdConta="3" Excluido="false" />
