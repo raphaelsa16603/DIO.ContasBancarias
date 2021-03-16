@@ -7,7 +7,8 @@ namespace DIO.ContasBancarias.View
     
     public class Operacoes
     {
-        private List<ContaInterface> listContas = new List<ContaInterface>();
+        //private List<ContaInterface> listContas = new List<ContaInterface>();
+		private ContasInterface controleContas = new ContasInterface();
 
         private Operacoes() { }
 
@@ -33,7 +34,8 @@ namespace DIO.ContasBancarias.View
 			Console.Write("Digite o valor a ser depositado: ");
 			double valorDeposito = double.Parse(Console.ReadLine());
 
-            listContas[indiceConta].Depositar(valorDeposito);
+            //listContas[indiceConta].Depositar(valorDeposito);
+			controleContas.Depositar(indiceConta, valorDeposito);
 		}
 
 		public void Sacar()
@@ -44,7 +46,8 @@ namespace DIO.ContasBancarias.View
 			Console.Write("Digite o valor a ser sacado: ");
 			double valorSaque = double.Parse(Console.ReadLine());
 
-            listContas[indiceConta].Sacar(valorSaque);
+            //listContas[indiceConta].Sacar(valorSaque);
+			controleContas.Sacar(indiceConta, valorSaque);
 		}
 
 		public  void Transferir()
@@ -58,7 +61,8 @@ namespace DIO.ContasBancarias.View
 			Console.Write("Digite o valor a ser transferido: ");
 			double valorTransferencia = double.Parse(Console.ReadLine());
 
-            listContas[indiceContaOrigem].Transferir(valorTransferencia, listContas[indiceContaDestino]);
+            //listContas[indiceContaOrigem].Transferir(valorTransferencia, listContas[indiceContaDestino]);
+			controleContas.Transferir(indiceContaOrigem, indiceContaDestino, valorTransferencia);
 		}
 
 		public  void InserirConta()
@@ -77,29 +81,35 @@ namespace DIO.ContasBancarias.View
 			Console.Write("Digite o crédito: ");
 			double entradaCredito = double.Parse(Console.ReadLine());
 
-			ContaInterface novaConta = new ContaInterface
-                                    (tipoConta: (TipoConta)entradaTipoConta,
-										saldo: entradaSaldo,
-										credito: entradaCredito,
-										nome: entradaNome);
+			// ContaInterface novaConta = new ContaInterface
+            //                         (tipoConta: (TipoConta)entradaTipoConta,
+			// 							saldo: entradaSaldo,
+			// 							credito: entradaCredito,
+			// 							nome: entradaNome);
 
-			listContas.Add(novaConta);
+			//listContas.Add(novaConta);
+			controleContas.InserirConta(entradaTipoConta,
+										entradaNome,
+										entradaSaldo,
+										entradaCredito);
 		}
 
-		public  void ListarContas()
+		public void ListarContas()
 		{
 			Console.WriteLine("Listar contas");
 
-			if (listContas.Count == 0)
+			List<Model.Interfaces.IConta> listaContas = controleContas.ListarContas();
+
+			if (listaContas.Count == 0)
 			{
 				Console.WriteLine("Nenhuma conta cadastrada.");
 				return;
 			}
 
-			for (int i = 0; i < listContas.Count; i++)
+			for (int i = 0; i < listaContas.Count; i++)
 			{
-				ContaInterface conta = listContas[i];
-				Console.Write("#{0} - ", i);
+				Model.Interfaces.IConta conta = listaContas[i];
+				Console.Write("#{0} - ", conta.IdConta);
 				Console.WriteLine(conta);
 			}
 		}

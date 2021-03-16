@@ -18,5 +18,11 @@ namespace DIO.ContasBancarias.Model.Interfaces
 		public void Transferir(double valorTransferencia, IConta contaDestino);
 
         public string ToString();
+
+		public int IdConta { get; set; }
+
+        public bool Excluido { get; set; }
+
+        public void Excluir();
     }
 }

@@ -24,6 +24,18 @@ public class Conta: Interfaces.ISubject, Interfaces.IMensagem, Interfaces.IConta
             this.MensagemDaOperacao = "";
 		}
 
+        public Conta(Enum.TipoConta tipoConta, double saldo, double credito, string nome, int id, bool excluido)
+		{
+			this.TipoConta = tipoConta;
+			this.Saldo = saldo;
+			this.Credito = credito;
+			this.Nome = nome;
+            this.IdConta = id;
+            this.Excluido = excluido;
+
+            this.MensagemDaOperacao = "";
+		}
+
 		public bool Sacar(double valorSaque)
 		{
             // Validação de saldo suficiente
@@ -65,6 +77,9 @@ public class Conta: Interfaces.ISubject, Interfaces.IMensagem, Interfaces.IConta
 
 
         public int State { get; set; } = -0;
+        public int IdConta { get; set; }
+        public bool Excluido { get; set; }
+
         private List<IObserver> _observers = new List<IObserver>();
         
         public void Attach(IObserver observer)
@@ -93,5 +108,9 @@ public class Conta: Interfaces.ISubject, Interfaces.IMensagem, Interfaces.IConta
             Notify();
         }
 
+        public void Excluir()
+        {
+            this.Excluido = true;
+        }
     }
 }

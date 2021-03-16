@@ -12,14 +12,29 @@ namespace DIO.ContasBancarias.Model.Entidades
 		public string Nome { get; set; }
 
         public  string MensagemDaOperacao { get; set; }
+        public int IdConta { get; set; }
+        public bool Excluido { get; set; }
+
 
         // Métodos
-		public DadosConta(Enum.TipoConta tipoConta, double saldo, double credito, string nome)
+        public DadosConta(Enum.TipoConta tipoConta, double saldo, double credito, string nome)
 		{
 			this.TipoConta = tipoConta;
 			this.Saldo = saldo;
 			this.Credito = credito;
 			this.Nome = nome;
+
+            this.MensagemDaOperacao = "";
+		}
+
+        public DadosConta(Enum.TipoConta tipoConta, double saldo, double credito, string nome, int id, bool excluido)
+		{
+			this.TipoConta = tipoConta;
+			this.Saldo = saldo;
+			this.Credito = credito;
+			this.Nome = nome;
+            this.IdConta = id;
+            this.Excluido = excluido;
 
             this.MensagemDaOperacao = "";
 		}
@@ -35,6 +50,11 @@ namespace DIO.ContasBancarias.Model.Entidades
         }
 
         public void Transferir(double valorTransferencia, IConta contaDestino)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Excluir()
         {
             throw new System.NotImplementedException();
         }

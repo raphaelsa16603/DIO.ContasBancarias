@@ -39,21 +39,19 @@ namespace DIO.ContasBancarias.Data.LDados
                 this.asContas = new Contas();
             }
 
+
+
             foreach (IDLConta conta in contas)
             {
-                // IConta contaNormal = new Conta
-                //     (conta.TipoConta, 
-                //      conta.Saldo, 
-                //      conta.Credito, 
-                //      conta.Nome);
-                if(!conta.Excluido)
-                {
-                    this.asContas.InserirConta
-                    (conta.TipoConta == Model.Enum.TipoConta.PessoaFisica ? 1 : 2, 
-                     conta.Nome,
+                IConta contaNormal = new Conta
+                    (conta.TipoConta, 
                      conta.Saldo, 
-                     conta.Credito);
-                }
+                     conta.Credito, 
+                     conta.Nome, 
+                     conta.IdConta,
+                     conta.Excluido);
+
+                ((Contas)this.asContas).InsereDB(contaNormal);
             }
         }
 
@@ -76,27 +74,27 @@ namespace DIO.ContasBancarias.Data.LDados
             //EscreverArquivoTexto(this.pathString, txtjson);
         }
 
-        private string SerializandoObjetosDeContas()
-        {
-            string txtjson;
-            //Serializar Lista de Filmes
-            // Inicializando do zero filmes serializaveis
-            this.asContasXML = new DLContasRepositorio();
-            List<IConta> contas = this.asContas.Lista();
-            foreach (IConta conta in contas)
-            {
-                IDLConta ContaXml = new DLConta();
+        // private string SerializandoObjetosDeContas()
+        // {
+        //     string txtjson;
+        //     //Serializar Lista de Filmes
+        //     // Inicializando do zero filmes serializaveis
+        //     this.asContasXML = new DLContasRepositorio();
+        //     List<IConta> contas = this.asContas.Lista();
+        //     foreach (IConta conta in contas)
+        //     {
+        //         IDLConta ContaXml = new DLConta();
                 
-                if (filme.Excluido)
-                {
-                    FilmeJson.Excluir();
-                }
-                this.osFilmesSerializaveis.Insere(FilmeJson);
-            }
-            txtjson = JsonSerializer.Serialize<MoviesJson>
-                    (this.osFilmesSerializaveis, options);
-            return txtjson;
-        }
+        //         if (filme.Excluido)
+        //         {
+        //             FilmeJson.Excluir();
+        //         }
+        //         this.osFilmesSerializaveis.Insere(FilmeJson);
+        //     }
+        //     txtjson = JsonSerializer.Serialize<MoviesJson>
+        //             (this.osFilmesSerializaveis, options);
+        //     return txtjson;
+        // }
 
         private static async void EscreverArquivoTexto(string FilePath, string TextoJson)
         {
@@ -104,14 +102,14 @@ namespace DIO.ContasBancarias.Data.LDados
         }
 
 
-        public Movies.Movies GetMovies()
+        public IContas GetContas()
         {
-            return this.osFilmes;
+            return this.asContas;
         }
 
-        public void AtualizarMovies(Movies.Movies filmes)
+        public void AtualizarContas(IContas contas)
         {
-            this.osFilmes = filmes;
+            this.asContas = contas;
         }        
     }
 

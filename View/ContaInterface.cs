@@ -16,10 +16,12 @@ namespace DIO.ContasBancarias.View
 
         // Criar um Observer para exibir as mensagens geradas internamente...
         public  string MensagemDaOperacao { get; set; }
+        public int IdConta { get; set; }
+        public bool Excluido { get; set; }
 
 
         // Métodos
-		public ContaInterface(Model.Enum.TipoConta tipoConta, double saldo, double credito, string nome)
+        public ContaInterface(Model.Enum.TipoConta tipoConta, double saldo, double credito, string nome)
 		{
             this.Nome = nome;
 			this.TipoConta = tipoConta;
@@ -35,6 +37,29 @@ namespace DIO.ContasBancarias.View
 			((Model.Interfaces.ISubject)this.EntidadeConta).Attach(this);
             
 		}
+
+        public ContaInterface(Model.Enum.TipoConta tipoConta, double saldo, double credito, string nome, int id, bool excluido)
+		{
+            this.Nome = nome;
+			this.TipoConta = tipoConta;
+			this.Saldo = saldo;
+			this.Credito = credito;
+            this.IdConta = id;
+            this.Excluido = excluido;
+
+            this.EntidadeConta = new Conta (
+                                        tipoConta: (Model.Enum.TipoConta)tipoConta,
+										saldo: saldo,
+										credito: credito,
+										nome: nome, 
+                                        id: id,
+                                        excluido: excluido);
+
+			((Model.Interfaces.ISubject)this.EntidadeConta).Attach(this);
+            
+		}
+
+
         public void Depositar(double valorDeposito)
         {
             EntidadeConta.Depositar(valorDeposito);
@@ -62,6 +87,11 @@ namespace DIO.ContasBancarias.View
                 string msg = ((IMensagem) (subject as Conta)).MensagemDaOperacao;
                 Console.WriteLine($"{msg}");
             }
+        }
+
+        public void Excluir()
+        {
+            EntidadeConta.Excluir();
         }
     }
 }

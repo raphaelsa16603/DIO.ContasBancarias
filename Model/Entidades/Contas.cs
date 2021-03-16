@@ -5,7 +5,7 @@ using DIO.ContasBancarias.Model.Interfaces;
 
 namespace DIO.ContasBancarias.Model.Entidades
 {
-    public class Contas :  Interfaces.ISubject, Interfaces.IMensagem, Interfaces.IContas, Interfaces.IObserver
+    public class Contas :  Interfaces.ISubject, Interfaces.IMensagem, Interfaces.IContas, Interfaces.IObserver, Interfaces.IContasDB
     {
         private List<IConta> listContas = new List<IConta>();
 
@@ -35,14 +35,16 @@ namespace DIO.ContasBancarias.Model.Entidades
                                     (conta.TipoConta,
 										saldo: conta.Saldo,
 										credito: conta.Credito,
-										nome: conta.Nome);
+										nome: conta.Nome,
+                                        id: conta.IdConta,
+                                        excluido: conta.Excluido);
 
 			    listContas.Add(novaConta);
 
                 //Observar conta
                 ((Model.Interfaces.ISubject)novaConta).Attach(this);
 
-                EnviaMensagem($"Lendo do BD a conta #{i} - {conta.ToString()}");
+                EnviaMensagem($"Lendo do BD a conta #{i}/{conta.IdConta} - {conta.ToString()}");
 			}
         }
 
@@ -73,7 +75,9 @@ namespace DIO.ContasBancarias.Model.Entidades
                                     (tipoConta: (TipoConta)entradaTipoConta,
 										saldo: entradaSaldo,
 										credito: entradaCredito,
-										nome: entradaNome);
+										nome: entradaNome,
+                                        id: ProximoId(),
+                                        excluido: false);
 
 			listContas.Add(novaConta);
 		}
@@ -146,6 +150,23 @@ namespace DIO.ContasBancarias.Model.Entidades
                 string msg = ((IMensagem) (subject as Conta)).MensagemDaOperacao;
                 EnviaMensagem($"{msg}");
             }
+        }
+
+        public void InsereDB(IConta entidade){
+            IConta novaConta = new Conta
+                                    (tipoConta: (TipoConta)entidade.TipoConta,
+										saldo: entidade.Saldo,
+										credito: entidade.Credito,
+										nome: entidade.Nome,
+                                        id: entidade.IdConta, 
+                                        excluido: entidade.Excluido);
+
+			listContas.Add(novaConta);
+        }
+
+        public int ProximoId()
+        {
+            return this.listContas.Count;
         }
     }
 }
