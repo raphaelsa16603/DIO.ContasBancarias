@@ -3,10 +3,10 @@ using System.Xml;
 using System.Xml.Serialization;
 namespace DIO.ContasBancarias.Data.LDados
 {
-    public interface IDLContasRepositorio: IRepositorio<IDLConta>
+    public interface IDLContasRepositorio: IRepositorio<DLConta>
     {
         [XmlArrayAttribute("Contas")]
-        public List<IDLConta> Contas { get; set; }
+        public List<DLConta> Contas { get; set; }
         
     }
 }

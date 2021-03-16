@@ -33,5 +33,11 @@ namespace DIO.ContasBancarias.Data.LDados
             }
             return _instance;
         }
+
+        public string getPathFile()
+        {
+            string pathString = System.IO.Path.Combine(this.DiretorioDB, this.ArquivoContasDB);
+            return pathString;
+        }
     }
 }

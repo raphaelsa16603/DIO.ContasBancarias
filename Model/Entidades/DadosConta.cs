@@ -58,5 +58,16 @@ namespace DIO.ContasBancarias.Model.Entidades
         {
             throw new System.NotImplementedException();
         }
+
+        public override string ToString()
+		{
+            string retorno = "";
+            retorno += "Id " + this.IdConta + " | ";
+            retorno += "TipoConta " + this.TipoConta + " | ";
+            retorno += "Nome " + this.Nome + " | ";
+            retorno += "Saldo " + this.Saldo + " | ";
+            retorno += "Crédito " + this.Credito;
+			return retorno;
+		}
     }
 }

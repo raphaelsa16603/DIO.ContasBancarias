@@ -5,10 +5,14 @@ using DIO.ContasBancarias.Model.Enum;
 namespace DIO.ContasBancarias.View
 {
     
+	//TODO: 1) Opção de excluir conta; 
+	//TODO: 2) Lista só contas não excluidas;
+	//TODO: 3) Extrato de conta, lista de movimentações do mês ou ano;
+	//
     public class Operacoes
     {
         //private List<ContaInterface> listContas = new List<ContaInterface>();
-		private ContasInterface controleContas = new ContasInterface();
+		public ContasInterface controleContas = new ContasInterface();
 
         private Operacoes() { }
 
@@ -98,19 +102,33 @@ namespace DIO.ContasBancarias.View
 		{
 			Console.WriteLine("Listar contas");
 
-			List<Model.Interfaces.IConta> listaContas = controleContas.ListarContas();
+			if(controleContas != null)
+			{
+				if(controleContas.ControleContas != null)
+				{
+					List<Model.Interfaces.IConta> listaContas = controleContas.ListarContas();
 
-			if (listaContas.Count == 0)
+					if (listaContas.Count == 0)
+					{
+						Console.WriteLine("Nenhuma conta cadastrada.");
+						return;
+					}
+
+					for (int i = 0; i < listaContas.Count; i++)
+					{
+						Model.Interfaces.IConta conta = listaContas[i];
+						Console.Write("#{0} - ", conta.IdConta);
+						Console.WriteLine(conta);
+					}
+				}
+				else
+				{
+					Console.WriteLine("Nenhuma conta cadastrada.");
+				}
+			}
+			else
 			{
 				Console.WriteLine("Nenhuma conta cadastrada.");
-				return;
-			}
-
-			for (int i = 0; i < listaContas.Count; i++)
-			{
-				Model.Interfaces.IConta conta = listaContas[i];
-				Console.Write("#{0} - ", conta.IdConta);
-				Console.WriteLine(conta);
 			}
 		}
     }

@@ -11,7 +11,7 @@ namespace DIO.ContasBancarias.Data.LDados
     {
 
         private IContas asContas = null;
-        private IDLContasRepositorio asContasXML = null;
+        private DLContasRepositorio asContasXML = null;
         private string pathString;
 
         public XmlContasTools(IContas oContas, string FilePath)
@@ -20,19 +20,22 @@ namespace DIO.ContasBancarias.Data.LDados
             this.pathString = FilePath;
         }
 
+
         public void LerArquivoXml()
         {
             //string txtjson = LerArquioTexto();
 
-            XmlSerializer serializer = new XmlSerializer(typeof(IDLContasRepositorio));
+            if(this.asContasXML == null)
+                this.asContasXML = new DLContasRepositorio();
+            XmlSerializer serializer = new XmlSerializer(this.asContasXML.GetType());
             FileStream fs = new FileStream(this.pathString, FileMode.Open);
-            this.asContasXML = (IDLContasRepositorio) serializer.Deserialize(fs);
-            List<IDLConta> contas = this.asContasXML.Lista();
+            this.asContasXML = (DLContasRepositorio) serializer.Deserialize(fs);
+            List<DLConta> contas = this.asContasXML.Lista();
 
             ConverterListaDeObjetos(contas);
         }
 
-        private void ConverterListaDeObjetos(List<IDLConta> contas)
+        private void ConverterListaDeObjetos(List<DLConta> contas)
         {
             if (this.asContas == null)
             {
@@ -66,35 +69,54 @@ namespace DIO.ContasBancarias.Data.LDados
         public void EscreverArquivoXml()
         {
             // string txtjson = "";
-            XmlSerializer serializer = new XmlSerializer(typeof(IDLContasRepositorio));
-            TextWriter writer = new StreamWriter(this.pathString);
-            
-            serializer.Serialize(writer, this.asContasXML);
-            writer.Close();
-            //EscreverArquivoTexto(this.pathString, txtjson);
+            if(this.asContas != null)
+            {
+                if(this.asContasXML == null)
+                {
+                    SerializandoObjetosDeContas();
+                }
+                XmlSerializer serializer = new XmlSerializer(this.asContasXML.GetType());
+                try
+                {
+                    TextWriter writer = new StreamWriter(this.pathString);
+                    serializer.Serialize(writer, this.asContasXML);
+                    writer.Close();                
+                }
+                catch (System.Exception)
+                {
+                    string txtXml = XmlContasTools.SerializeObject(this.asContasXML);
+                    EscreverArquivoTexto(this.pathString, txtXml);
+                }
+            }
         }
 
-        // private string SerializandoObjetosDeContas()
-        // {
-        //     string txtjson;
-        //     //Serializar Lista de Filmes
-        //     // Inicializando do zero filmes serializaveis
-        //     this.asContasXML = new DLContasRepositorio();
-        //     List<IConta> contas = this.asContas.Lista();
-        //     foreach (IConta conta in contas)
-        //     {
-        //         IDLConta ContaXml = new DLConta();
+        public static string SerializeObject(DLContasRepositorio toSerialize)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(toSerialize.GetType());
+
+            using(StringWriter textWriter = new StringWriter())
+            {
+                xmlSerializer.Serialize(textWriter, toSerialize);
+                return textWriter.ToString();
+            }
+        }
+
+        private void SerializandoObjetosDeContas()
+        {
+            this.asContasXML = new DLContasRepositorio();
+            List<IConta> contas = this.asContas.ListarContas();
+            foreach (IConta conta in contas)
+            {
+                DLConta ContaXml = new DLConta();
                 
-        //         if (filme.Excluido)
-        //         {
-        //             FilmeJson.Excluir();
-        //         }
-        //         this.osFilmesSerializaveis.Insere(FilmeJson);
-        //     }
-        //     txtjson = JsonSerializer.Serialize<MoviesJson>
-        //             (this.osFilmesSerializaveis, options);
-        //     return txtjson;
-        // }
+                if (conta.Excluido)
+                {
+                    ContaXml.Excluir();
+                }
+                this.asContasXML.Insere(ContaXml);
+            }
+
+        }
 
         private static async void EscreverArquivoTexto(string FilePath, string TextoJson)
         {

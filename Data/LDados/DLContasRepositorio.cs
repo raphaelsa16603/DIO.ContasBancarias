@@ -1,17 +1,18 @@
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
+using DIO.ContasBancarias.Model.Entidades;
 
 namespace DIO.ContasBancarias.Data.LDados
 {
     public class DLContasRepositorio : IDLContasRepositorio
     {
         [XmlArrayAttribute("Contas")]
-        public List<IDLConta> Contas { get; set; }
+        public List<DLConta> Contas { get; set; }
 
-        public void Atualiza(int id, IDLConta entidade)
+        public void Atualiza(int id, DLConta entidade)
         {
-            this.Contas[id] = entidade;
+            this.Contas[id] = (DLConta) entidade;
         }
 
         public void Exclui(int id)
@@ -19,12 +20,14 @@ namespace DIO.ContasBancarias.Data.LDados
             this.Contas[id].Excluir();
         }
 
-        public void Insere(IDLConta entidade)
+        public void Insere(DLConta entidade)
         {
-            this.Contas.Add(entidade);
+            if(this.Contas == null)
+                this.Contas = new List<DLConta>();
+            this.Contas.Add((DLConta)entidade);
         }
 
-        public List<IDLConta> Lista()
+        public List<DLConta> Lista()
         {
             return this.Contas;
         }
@@ -34,7 +37,7 @@ namespace DIO.ContasBancarias.Data.LDados
             return this.Contas.Count;
         }
 
-        public IDLConta RetornaPorId(int id)
+        public DLConta RetornaPorId(int id)
         {
             return this.Contas[id];
         }

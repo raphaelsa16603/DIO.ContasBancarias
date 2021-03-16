@@ -7,7 +7,7 @@ namespace DIO.ContasBancarias.View
 {
     public class ContasInterface : IContas, Model.Interfaces.IObserver
     {
-        private IContas ControleContas = new Contas();
+        public IContas ControleContas = new Contas();
 
         public ContasInterface()
         {
@@ -70,8 +70,16 @@ namespace DIO.ContasBancarias.View
         {
             if ((subject as Conta).State <= 1)
             {
-                string msg = ((IMensagem) (subject as Conta)).MensagemDaOperacao;
-                Console.WriteLine($"{msg}");
+                try
+                {
+                    string msg = ((IMensagem) (subject as Conta)).MensagemDaOperacao;
+                    Console.WriteLine($"{msg}");
+                }
+                catch (System.Exception e)
+                {
+                    Console.WriteLine($"{e.Message} - {e.Source}");
+                }
+                
             }
         }
     }

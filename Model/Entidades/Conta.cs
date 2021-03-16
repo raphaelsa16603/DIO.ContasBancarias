@@ -67,6 +67,7 @@ public class Conta: Interfaces.ISubject, Interfaces.IMensagem, Interfaces.IConta
         public override string ToString()
 		{
             string retorno = "";
+            retorno += "Id " + this.IdConta + " | ";
             retorno += "TipoConta " + this.TipoConta + " | ";
             retorno += "Nome " + this.Nome + " | ";
             retorno += "Saldo " + this.Saldo + " | ";
@@ -94,9 +95,20 @@ public class Conta: Interfaces.ISubject, Interfaces.IMensagem, Interfaces.IConta
 
         public void Notify()
         {
-            foreach (var observer in _observers)
+            if(_observers != null)
             {
-                observer.Update(this);
+                foreach (var observer in _observers)
+                {
+                    try
+                    {
+                        observer.Update(this);    
+                    }
+                    catch (System.Exception)
+                    {
+                        
+                    }
+                    
+                }
             }
         }
 

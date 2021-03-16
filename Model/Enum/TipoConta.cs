@@ -2,7 +2,7 @@ namespace DIO.ContasBancarias.Model.Enum
 {
     public enum TipoConta
     {
-        PessoaFisica = 1,
-        PessoaJuridica = 2
+        PessoaFisica = 0,
+        PessoaJuridica = 1
     }
 }

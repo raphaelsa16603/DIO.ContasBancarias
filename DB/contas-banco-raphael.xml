@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DLContasRepositorio xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Contas>
+    <DLConta TipoConta="PessoaFisica" Saldo="0" Credito="0" IdConta="0" Excluido="false" />
+  </Contas>
+</DLContasRepositorio>

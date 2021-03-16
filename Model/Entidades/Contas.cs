@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DIO.ContasBancarias.Data.LDados;
 using DIO.ContasBancarias.Model.Enum;
 using DIO.ContasBancarias.Model.Interfaces;
 
@@ -53,18 +54,21 @@ namespace DIO.ContasBancarias.Model.Entidades
 		{
             EnviaMensagem($"Depositar na conta ({indiceConta}) o valor de R$ {valorDeposito}.");
             listContas[indiceConta].Depositar(valorDeposito);
+            UpdateDB();
 		}
 
 		public void Sacar(int indiceConta, double valorSaque)
 		{
             EnviaMensagem($"Sacar da conta ({indiceConta}) o valor de R$ {valorSaque}.");
             listContas[indiceConta].Sacar(valorSaque);
+            UpdateDB();
 		}
 
 		public  void Transferir(int indiceContaOrigem, int indiceContaDestino, double valorTransferencia)
 		{
             EnviaMensagem($"Transferir da conta ({indiceContaOrigem}) para a conta ({indiceContaDestino}) o valor de R$ {valorTransferencia}.");
             listContas[indiceContaOrigem].Transferir(valorTransferencia, listContas[indiceContaDestino]);
+            UpdateDB();
 		}
 
 		public  void InserirConta(int entradaTipoConta, string entradaNome, double entradaSaldo, double entradaCredito)
@@ -80,6 +84,7 @@ namespace DIO.ContasBancarias.Model.Entidades
                                         excluido: false);
 
 			listContas.Add(novaConta);
+            UpdateDB();
 		}
 
 		public List<IConta> ListarContas()
@@ -129,9 +134,20 @@ namespace DIO.ContasBancarias.Model.Entidades
 
         public void Notify()
         {
-            foreach (var observer in _observers)
+            if(_observers != null)
             {
-                observer.Update(this);
+                foreach (var observer in _observers)
+                {
+                    try
+                    {
+                        observer.Update(this);    
+                    }
+                    catch (System.Exception)
+                    {
+                        
+                    }
+                    
+                }
             }
         }
 
@@ -167,6 +183,14 @@ namespace DIO.ContasBancarias.Model.Entidades
         public int ProximoId()
         {
             return this.listContas.Count;
+        }
+
+        private void UpdateDB()
+        {
+            // Atualizar arquivo de dados em XML
+            XmlContasTools tools = 
+                new XmlContasTools(this, DLConfiguracoes.GetInstance().getPathFile());
+            tools.EscreverArquivoXml();
         }
     }
 }
