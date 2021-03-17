@@ -23,8 +23,8 @@
 
 
 ##### Dica do Visual Studio Code
-####### - Abra .vscode/launch.json.
-####### - Altere a console configuração de internalConsole para integratedTerminal :
-####### JSON
-#######     "console": "integratedTerminal",
-####### - Salve as alterações.
+###### - Abra .vscode/launch.json.
+###### - Altere a console configuração de internalConsole para integratedTerminal :
+###### JSON
+######     "console": "integratedTerminal",
+###### - Salve as alterações.
