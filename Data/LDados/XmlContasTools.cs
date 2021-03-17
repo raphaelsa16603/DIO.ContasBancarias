@@ -54,6 +54,9 @@ namespace DIO.ContasBancarias.Data.LDados
                      conta.IdConta,
                      conta.Excluido);
 
+                //Pegando os registros das movimentações anteriores
+                ((Conta)contaNormal).AtualizaMovimentacoesDB(((DLConta)conta).ListaMovimentos());
+
                 ((Contas)this.asContas).InsereDB(contaNormal);
             }
         }

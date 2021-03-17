@@ -3,14 +3,14 @@
   <Contas>
     <DLConta TipoConta="PessoaJuridica" Saldo="2000" Credito="500" Nome="Raphael" IdConta="0" Excluido="false">
       <Movimentacoes>
-        <DLMovimento DataHoraEvento="2021-03-17T00:08:43.8848992-03:00" NomeConta="Raphael" IdConta="0" Movimentacao="500" SaldoAntes="2000" CreditoAntes="500" />
-        <DLMovimento DataHoraEvento="2021-03-17T00:09:02.9497428-03:00" NomeConta="Raphael" IdConta="0" Movimentacao="-500" SaldoAntes="2500" CreditoAntes="500" />
+        <DLMovimento DataHoraEvento="2021-03-17T00:23:38.8588745-03:00" NomeConta="Raphael" IdConta="0" Movimentacao="500" SaldoAntes="2000" CreditoAntes="500" />
+        <DLMovimento DataHoraEvento="2021-03-17T00:23:55.9780384-03:00" NomeConta="Raphael" IdConta="0" Movimentacao="-500" SaldoAntes="2500" CreditoAntes="500" />
       </Movimentacoes>
     </DLConta>
     <DLConta TipoConta="PessoaJuridica" Saldo="3000" Credito="1000" Nome="Ruth" IdConta="1" Excluido="false">
       <Movimentacoes>
-        <DLMovimento DataHoraEvento="2021-03-17T00:08:50.0023899-03:00" NomeConta="Ruth" IdConta="1" Movimentacao="500" SaldoAntes="2000" CreditoAntes="1000" />
-        <DLMovimento DataHoraEvento="2021-03-17T00:09:02.949788-03:00" NomeConta="Ruth" IdConta="1" Movimentacao="500" SaldoAntes="2500" CreditoAntes="1000" />
+        <DLMovimento DataHoraEvento="2021-03-17T00:23:44.1973705-03:00" NomeConta="Ruth" IdConta="1" Movimentacao="500" SaldoAntes="2000" CreditoAntes="1000" />
+        <DLMovimento DataHoraEvento="2021-03-17T00:23:55.9780656-03:00" NomeConta="Ruth" IdConta="1" Movimentacao="500" SaldoAntes="2500" CreditoAntes="1000" />
       </Movimentacoes>
     </DLConta>
   </Contas>

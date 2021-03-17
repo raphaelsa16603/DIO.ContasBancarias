@@ -80,5 +80,25 @@ namespace DIO.ContasBancarias.Data.LDados
             }
         }
 
+        public List<DLMovimento> ListaMovimentos()
+        {
+            List<DLMovimento> movimentos = new List<DLMovimento>();
+            if(this.Movimentacoes != null)
+            {
+                foreach(DLMovimento mv in this.Movimentacoes)
+                {
+                    DLMovimento NovoMv = new DLMovimento(
+                            mv.DataHoraEvento, 
+                            mv.NomeConta, 
+                            mv.IdConta, 
+                            mv.Movimentacao, 
+                            mv.SaldoAntes, 
+                            mv.CreditoAntes);
+                    movimentos.Add(NovoMv);
+                }
+            }
+            return movimentos;
+        }
+
     }
 }

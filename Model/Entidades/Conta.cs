@@ -17,6 +17,25 @@ public class Conta: Interfaces.ISubject, Interfaces.IMensagem, Interfaces.IConta
 
         public List<MovimentoConta> listMovimentos = new List<MovimentoConta>();
 
+        public void AtualizaMovimentacoesDB(List<DLMovimento> list)
+        {
+            if(this.listMovimentos == null)
+            {
+                this.listMovimentos = new List<MovimentoConta>();
+            }
+            foreach(DLMovimento mv in list)
+            {
+                MovimentoConta mvEntidade = new MovimentoConta(
+                    mv.DataHoraEvento,
+                    mv.NomeConta,
+                    mv.IdConta,
+                    mv.Movimentacao,
+                    mv.SaldoAntes,
+                    mv.CreditoAntes);
+                
+                this.listMovimentos.Add(mvEntidade);
+            }
+        }
         public void AtualizaMovimentacoesDB(List<IDLMovimento> list)
         {
             if(this.listMovimentos == null)
