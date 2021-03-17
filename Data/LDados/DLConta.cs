@@ -4,6 +4,8 @@ using System.Xml;
 using System.Xml.Serialization;
 using System;
 using System.Diagnostics;
+using System.Collections.Generic;
+using DIO.ContasBancarias.Model.Entidades;
 
 namespace DIO.ContasBancarias.Data.LDados
 {
@@ -22,6 +24,9 @@ namespace DIO.ContasBancarias.Data.LDados
 
         [XmlAttribute]
         public bool Excluido { get; set; }
+
+        [XmlArrayAttribute("Movimentacoes")]
+        public List<DLMovimento> Movimentacoes { get; set; }
 
         public DLConta()
         { 
@@ -53,6 +58,27 @@ namespace DIO.ContasBancarias.Data.LDados
             retorno += "Excluido: " + this.Excluido;
 			return retorno;
 		}
+
+
+        public void AtualizaMovimentacoes(List<MovimentoConta> list)
+        {
+            if(this.Movimentacoes == null)
+            {
+                this.Movimentacoes = new List<DLMovimento>();
+            }
+            foreach(MovimentoConta mv in list)
+            {
+                DLMovimento mvDB = new DLMovimento(
+                    mv.DataHoraEvento,
+                    mv.NomeConta,
+                    mv.IdConta,
+                    mv.Movimentacao,
+                    mv.SaldoAntes,
+                    mv.CreditoAntes);
+                
+                this.Movimentacoes.Add(mvDB);
+            }
+        }
 
     }
 }

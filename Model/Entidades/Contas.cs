@@ -83,8 +83,22 @@ namespace DIO.ContasBancarias.Model.Entidades
 										nome: entradaNome,
                                         id: idProx,
                                         excluido: false);
-
+            // Na criação cadastrar o primeiro movimento de criação
+            ((Conta)novaConta).listMovimentos = new List<MovimentoConta>();
+            MovimentoConta mvInicial = new MovimentoConta(
+                    DateTime.Now,
+                    novaConta.Nome,
+                    novaConta.IdConta,
+                    entradaSaldo,
+                    0.00,
+                    entradaCredito
+            );
+            // Adiciona movimento inivial de abertura de conta
+            ((Conta)novaConta).listMovimentos.Add(mvInicial);
 			listContas.Add(novaConta);
+
+            
+
             UpdateDB();
 		}
 
@@ -102,13 +116,16 @@ namespace DIO.ContasBancarias.Model.Entidades
 			{
 				IConta conta = listContas[i];
 
-                IConta novaConta = new DadosConta
+                IConta novaConta = new Conta
                                     (conta.TipoConta,
 										saldo: conta.Saldo,
 										credito: conta.Credito,
 										nome: conta.Nome, 
                                         id: conta.IdConta,
                                         excluido: conta.Excluido);
+
+                ((Conta)novaConta).AtualizaMovimentacoes
+                        (((Conta)conta).listMovimentos);
 
 			    listDadosConta.Add(novaConta);
 
@@ -145,9 +162,10 @@ namespace DIO.ContasBancarias.Model.Entidades
                     {
                         observer.Update(this);    
                     }
-                    catch (System.Exception)
+                    catch (System.Exception e)
                     {
-                        
+                        // Temporário... até resolver o envio das mensagens para os Observadores
+                        System.Console.WriteLine($" Erro: {e.Message} - {e.StackTrace}");
                     }
                     
                 }
@@ -164,10 +182,14 @@ namespace DIO.ContasBancarias.Model.Entidades
 
         public void Update(ISubject subject)
         {
-            if ((subject as Conta).State <= 1)
+            Conta conta = subject as Conta;
+            if (conta != null)
             {
-                string msg = ((IMensagem) (subject as Conta)).MensagemDaOperacao;
-                EnviaMensagem($"{msg}");
+                if (conta.State <= 1)
+                {
+                    string msg = ((IMensagem) (subject as Conta)).MensagemDaOperacao;
+                    EnviaMensagem($"{msg}");
+                }
             }
         }
 

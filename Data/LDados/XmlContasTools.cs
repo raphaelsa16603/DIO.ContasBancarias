@@ -115,11 +115,12 @@ namespace DIO.ContasBancarias.Data.LDados
                     id: conta.IdConta,
                     excluido: conta.Excluido                
                 );
-                
                 if (conta.Excluido)
                 {
                     ContaXml.Excluir();
                 }
+                // Lendo Movimentações
+                ContaXml.AtualizaMovimentacoes(((Conta)conta).listMovimentos);
                 this.asContasXML.Insere(ContaXml);
             }
 

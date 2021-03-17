@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DLContasRepositorio xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Contas>
-    <DLConta TipoConta="PessoaJuridica" Saldo="1000" Credito="500" Nome="Raphael" IdConta="0" Excluido="false" />
-    <DLConta TipoConta="PessoaJuridica" Saldo="3000" Credito="500" Nome="Ruth" IdConta="1" Excluido="false" />
-    <DLConta TipoConta="PessoaJuridica" Saldo="1000" Credito="500" Nome="Sofia" IdConta="2" Excluido="false" />
-    <DLConta TipoConta="PessoaJuridica" Saldo="1000" Credito="500" Nome="Alice" IdConta="3" Excluido="false" />
+    <DLConta TipoConta="PessoaJuridica" Saldo="2000" Credito="500" Nome="Raphael" IdConta="0" Excluido="false">
+      <Movimentacoes>
+        <DLMovimento DataHoraEvento="2021-03-17T00:08:43.8848992-03:00" NomeConta="Raphael" IdConta="0" Movimentacao="500" SaldoAntes="2000" CreditoAntes="500" />
+        <DLMovimento DataHoraEvento="2021-03-17T00:09:02.9497428-03:00" NomeConta="Raphael" IdConta="0" Movimentacao="-500" SaldoAntes="2500" CreditoAntes="500" />
+      </Movimentacoes>
+    </DLConta>
+    <DLConta TipoConta="PessoaJuridica" Saldo="3000" Credito="1000" Nome="Ruth" IdConta="1" Excluido="false">
+      <Movimentacoes>
+        <DLMovimento DataHoraEvento="2021-03-17T00:08:50.0023899-03:00" NomeConta="Ruth" IdConta="1" Movimentacao="500" SaldoAntes="2000" CreditoAntes="1000" />
+        <DLMovimento DataHoraEvento="2021-03-17T00:09:02.949788-03:00" NomeConta="Ruth" IdConta="1" Movimentacao="500" SaldoAntes="2500" CreditoAntes="1000" />
+      </Movimentacoes>
+    </DLConta>
   </Contas>
 </DLContasRepositorio>
