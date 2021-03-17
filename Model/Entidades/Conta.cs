@@ -76,6 +76,26 @@ public class Conta: Interfaces.ISubject, Interfaces.IMensagem, Interfaces.IConta
             }
         }
 
+        public List<MovimentoConta> ListaMovimentos()
+        {
+            List<MovimentoConta> movimentos = new List<MovimentoConta>();
+            if(this.listMovimentos != null)
+            {
+                foreach(MovimentoConta mv in this.listMovimentos)
+                {
+                    MovimentoConta NovoMv = new MovimentoConta(
+                            mv.DataHoraEvento, 
+                            mv.NomeConta, 
+                            mv.IdConta, 
+                            mv.Movimentacao, 
+                            mv.SaldoAntes, 
+                            mv.CreditoAntes);
+                    movimentos.Add(NovoMv);
+                }
+            }
+            return movimentos;
+        }
+
 		// Métodos
 		public Conta(Enum.TipoConta tipoConta, double saldo, double credito, string nome)
 		{

@@ -39,8 +39,11 @@ namespace DIO.ContasBancarias.Model.Entidades
 										nome: conta.Nome,
                                         id: conta.IdConta,
                                         excluido: conta.Excluido);
-
+                // Movimentações da conta ...
+                ((Conta)novaConta).AtualizaMovimentacoesDB
+                    (((DLConta)conta).ListaMovimentos());
 			    listContas.Add(novaConta);
+                
 
                 //Observar conta
                 ((Model.Interfaces.ISubject)novaConta).Attach(this);
@@ -135,7 +138,7 @@ namespace DIO.ContasBancarias.Model.Entidades
             return listDadosConta;
 		}
 
-
+        
 
         public int State { get; set; } = -0;
         public string MensagemDaOperacao { get; set; }
@@ -194,15 +197,16 @@ namespace DIO.ContasBancarias.Model.Entidades
         }
 
         public void InsereDB(IConta entidade){
-            IConta novaConta = new Conta
-                                    (tipoConta: (TipoConta)entidade.TipoConta,
-										saldo: entidade.Saldo,
-										credito: entidade.Credito,
-										nome: entidade.Nome,
-                                        id: entidade.IdConta, 
-                                        excluido: entidade.Excluido);
-
-			listContas.Add(novaConta);
+            // IConta novaConta = new Conta
+            //                         (tipoConta: (TipoConta)entidade.TipoConta,
+			// 							saldo: entidade.Saldo,
+			// 							credito: entidade.Credito,
+			// 							nome: entidade.Nome,
+            //                             id: entidade.IdConta, 
+            //                             excluido: entidade.Excluido);
+            // ((Conta)novaConta).AtualizaMovimentacoesDB
+            //         (((DLConta)entidade).ListaMovimentos());
+			listContas.Add(entidade);
         }
 
         public int ProximoId()

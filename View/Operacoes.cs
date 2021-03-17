@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using DIO.ContasBancarias.Model.Entidades;
 using DIO.ContasBancarias.Model.Enum;
+using DIO.ContasBancarias.Model.Interfaces;
 
 namespace DIO.ContasBancarias.View
 {
@@ -98,7 +100,7 @@ namespace DIO.ContasBancarias.View
 										entradaCredito);
 		}
 
-		public void ListarContas()
+		public void ListarContas(bool extratos)
 		{
 			Console.WriteLine("Listar contas");
 
@@ -115,12 +117,14 @@ namespace DIO.ContasBancarias.View
 					}
 
 					for (int i = 0; i < listaContas.Count; i++)
-					{
-						Model.Interfaces.IConta conta = listaContas[i];
-						Console.Write("#{0} - ", conta.IdConta);
-						Console.WriteLine(conta);
-					}
-				}
+                    {
+                        Model.Interfaces.IConta conta = listaContas[i];
+                        Console.Write("#{0} - ", conta.IdConta);
+                        Console.WriteLine(conta);
+						if(extratos)
+                        	ExtratoDaConta(conta);
+                    }
+                }
 				else
 				{
 					Console.WriteLine("Nenhuma conta cadastrada.");
@@ -131,5 +135,15 @@ namespace DIO.ContasBancarias.View
 				Console.WriteLine("Nenhuma conta cadastrada.");
 			}
 		}
+
+        private static void ExtratoDaConta(IConta conta)
+        {
+            List<MovimentoConta> movs = ((Conta)conta).ListaMovimentos();
+            foreach (MovimentoConta mv in movs)
+            {
+                Console.Write("---- Movmento {0} - ", mv.DataHoraEvento.ToString("dd/MM/yyyy - hh:mm"));
+                Console.WriteLine(" - Valor - {0}", mv.Movimentacao);
+            }
+        }
     }
 }

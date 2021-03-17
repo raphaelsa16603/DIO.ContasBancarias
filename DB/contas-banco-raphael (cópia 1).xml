@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DLContasRepositorio xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Contas>
-    <DLConta TipoConta="PessoaJuridica" Saldo="2000" Credito="500" Nome="Raphael" IdConta="0" Excluido="false">
+    <DLConta TipoConta="PessoaJuridica" Saldo="1000" Credito="500" Nome="Raphael" IdConta="0" Excluido="false">
       <Movimentacoes>
         <DLMovimento DataHoraEvento="2021-03-17T15:42:44.5042497-03:00" NomeConta="Raphael" IdConta="0" Movimentacao="1000" SaldoAntes="0" CreditoAntes="500" />
         <DLMovimento DataHoraEvento="2021-03-17T15:43:03.9678789-03:00" NomeConta="Raphael" IdConta="0" Movimentacao="500" SaldoAntes="1000" CreditoAntes="500" />
         <DLMovimento DataHoraEvento="2021-03-17T15:43:23.4638556-03:00" NomeConta="Raphael" IdConta="0" Movimentacao="-500" SaldoAntes="1500" CreditoAntes="500" />
-        <DLMovimento DataHoraEvento="2021-03-17T16:14:32.4706958-03:00" NomeConta="Raphael" IdConta="0" Movimentacao="1000" SaldoAntes="1000" CreditoAntes="500" />
       </Movimentacoes>
     </DLConta>
-    <DLConta TipoConta="PessoaJuridica" Saldo="2000" Credito="1000" Nome="Ruth" IdConta="1" Excluido="false">
+    <DLConta TipoConta="PessoaJuridica" Saldo="3000" Credito="1000" Nome="Ruth" IdConta="1" Excluido="false">
       <Movimentacoes>
         <DLMovimento DataHoraEvento="2021-03-17T15:42:55.6535641-03:00" NomeConta="Ruth" IdConta="1" Movimentacao="2000" SaldoAntes="0" CreditoAntes="1000" />
         <DLMovimento DataHoraEvento="2021-03-17T15:43:07.925481-03:00" NomeConta="Ruth" IdConta="1" Movimentacao="500" SaldoAntes="2000" CreditoAntes="1000" />
         <DLMovimento DataHoraEvento="2021-03-17T15:43:23.4638949-03:00" NomeConta="Ruth" IdConta="1" Movimentacao="500" SaldoAntes="2500" CreditoAntes="1000" />
-        <DLMovimento DataHoraEvento="2021-03-17T16:14:32.4695668-03:00" NomeConta="Ruth" IdConta="1" Movimentacao="-1000" SaldoAntes="3000" CreditoAntes="1000" />
       </Movimentacoes>
     </DLConta>
   </Contas>

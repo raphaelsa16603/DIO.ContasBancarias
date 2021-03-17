@@ -17,6 +17,7 @@ namespace DIO.ContasBancarias.View
 			Console.WriteLine("3- Transferir");
 			Console.WriteLine("4- Sacar");
 			Console.WriteLine("5- Depositar");
+			Console.WriteLine("6- Listar contas com extrato");
             Console.WriteLine("C- Limpar Tela");
 			Console.WriteLine("X- Sair");
 			Console.WriteLine();

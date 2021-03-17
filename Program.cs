@@ -66,7 +66,7 @@ namespace DIO.ContasBancarias
 				switch (opcaoUsuario)
 				{
 					case "1":
-						Op.ListarContas();
+						Op.ListarContas(false);
 						break;
 					case "2":
 						Op.InserirConta();
@@ -79,6 +79,9 @@ namespace DIO.ContasBancarias
 						break;
 					case "5":
 						Op.Depositar();
+						break;
+					case "6":
+						Op.ListarContas(true);
 						break;
                     case "C":
 						Console.Clear();
