@@ -79,8 +79,10 @@ namespace DIO.ContasBancarias.Model.Entidades
             EnviaMensagem($"Inserir conta (Tipo {entradaTipoConta}) (Nome {entradaNome}) " + 
                 $"com saldo no valor de R$ {entradaSaldo} e crédido no valor de R$ {entradaCredito}.");
             int idProx = this.ProximoId();
+            TipoConta tp = (TipoConta)( entradaTipoConta == 0 ?  
+                        TipoConta.PessoaFisica : TipoConta.PessoaJuridica);
 			IConta novaConta = new Conta
-                                    (tipoConta: (TipoConta)entradaTipoConta,
+                                    (tipoConta: tp,
 										saldo: entradaSaldo,
 										credito: entradaCredito,
 										nome: entradaNome,
@@ -132,7 +134,7 @@ namespace DIO.ContasBancarias.Model.Entidades
 
 			    listDadosConta.Add(novaConta);
 
-                EnviaMensagem($"#{i} - {conta.ToString()}");
+                //EnviaMensagem($"#{i} - {conta.ToString()}");
 			}
 
             return listDadosConta;
@@ -185,14 +187,11 @@ namespace DIO.ContasBancarias.Model.Entidades
 
         public void Update(ISubject subject)
         {
-            Conta conta = subject as Conta;
-            if (conta != null)
+            //Conta conta = subject as Conta;
+            if (subject != null)
             {
-                if (conta.State <= 1)
-                {
-                    string msg = ((IMensagem) (subject as Conta)).MensagemDaOperacao;
-                    EnviaMensagem($"{msg}");
-                }
+                string msg = ((IMensagem) subject).MensagemDaOperacao;
+                EnviaMensagem($"{msg}");
             }
         }
 

@@ -77,6 +77,8 @@ namespace DIO.ContasBancarias.View
 
 			Console.Write("Digite 1 para Conta Fisica ou 2 para Juridica: ");
 			int entradaTipoConta = int.Parse(Console.ReadLine());
+			// Conversão necessária para o Enum ser serializado...
+			entradaTipoConta = entradaTipoConta == 1 ? 0 : 1;
 
 			Console.Write("Digite o Nome do Cliente: ");
 			string entradaNome = Console.ReadLine();
@@ -86,7 +88,8 @@ namespace DIO.ContasBancarias.View
 
 			Console.Write("Digite o crédito: ");
 			double entradaCredito = double.Parse(Console.ReadLine());
-
+			// TipoConta tp = (TipoConta)( entradaTipoConta == 0 ?  
+            //            TipoConta.PessoaFisica : TipoConta.PessoaJuridica);
 			// ContaInterface novaConta = new ContaInterface
             //                         (tipoConta: (TipoConta)entradaTipoConta,
 			// 							saldo: entradaSaldo,

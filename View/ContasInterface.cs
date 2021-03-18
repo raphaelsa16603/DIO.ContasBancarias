@@ -68,20 +68,17 @@ namespace DIO.ContasBancarias.View
 
         public void Update(ISubject subject)
         {
-            Conta conta = subject as Conta;
-            if (conta != null)
+            //Conta conta = subject as Conta;
+            if (subject != null)
             {
-                if (conta.State <= 1)
+                try
                 {
-                    try
-                    {
-                        string msg = ((IMensagem) (subject as Conta)).MensagemDaOperacao;
-                        Console.WriteLine($"{msg}");
-                    }
-                    catch (System.Exception e)
-                    {
-                        Console.WriteLine($"{e.Message} - {e.Source}");
-                    }
+                    string msg = ((IMensagem) subject).MensagemDaOperacao;
+                    Console.WriteLine($"{msg}");
+                }
+                catch (System.Exception e)
+                {
+                    Console.WriteLine($"{e.Message} - {e.Source}");
                 }
             }
         }

@@ -82,9 +82,10 @@ namespace DIO.ContasBancarias.View
 
         public void Update(ISubject subject)
         {
-            if ((subject as Conta).State <= 1)
+            //Conta conta = subject as Conta;
+            if (subject != null)
             {
-                string msg = ((IMensagem) (subject as Conta)).MensagemDaOperacao;
+                string msg = ((IMensagem) subject).MensagemDaOperacao;
                 Console.WriteLine($"{msg}");
             }
         }
